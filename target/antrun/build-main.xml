@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <copy file="/Users/brian/workspace/vars-avfoundation/target/xcode/libavfimagesnap.dylib" todir="/Users/brian/workspace/vars-avfoundation/target/classes/native"/>
+  <copy file="/Users/brian/workspace/vars-avfoundation/target/xcode/libavfimagesnap.dylib" tofile="/Users/brian/workspace/vars-avfoundation/target/classes/native/libavfimagesnap.jnilib"/>
+</target>
+</project>

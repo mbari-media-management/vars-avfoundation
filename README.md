@@ -23,7 +23,8 @@ String[] devices = ic.videoDevicesAsStrings();
 // Pick one to capture from
 ic.startSession(devices[0]);
 
-// Do some capturing, capture as many images as you want
+// Do some capturing, capture as many images as you want. Images are
+// written to where you specify. Also, read and returned as java.awt.Image
 Optional<java.awt.Image> image = ic.capture(new File("foo.png"));
 
 // When done. release the device.
