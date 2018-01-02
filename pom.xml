@@ -53,17 +53,22 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mbari</groupId>
-            <artifactId>mbarix4j</artifactId>
-            <version>${mbarix4j.version}</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.scijava</groupId>
+            <artifactId>native-lib-loader</artifactId>
+            <version>2.2.0</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.mbari</groupId>-->
+            <!--<artifactId>mbarix4j</artifactId>-->
+            <!--<version>${mbarix4j.version}</version>-->
+            <!--<scope>compile</scope>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.slf4j</groupId>-->
+                    <!--<artifactId>slf4j-api</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
       </dependencies>
 
     <profiles>
@@ -113,9 +118,9 @@
                                 <configuration>
                                     <tasks>
                                         <copy file="${xcode.builddir}/libavfimagesnap.dylib"
-                                              todir="${project.build.outputDirectory}/native" />
-                                        <copy file="${xcode.builddir}/libavfimagesnap.dylib"
-                                              tofile="${project.build.outputDirectory}/native/libavfimagesnap.jnilib" />
+                                              todir="${project.build.outputDirectory}/META-INF/lib/osx_64" />
+                                        <!--<copy file="${xcode.builddir}/libavfimagesnap.dylib"-->
+                                              <!--tofile="${project.build.outputDirectory}/native/libavfimagesnap.jnilib" />-->
                                     </tasks>
                                 </configuration>
                             </execution>

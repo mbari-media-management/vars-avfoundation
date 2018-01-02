@@ -17,7 +17,7 @@ void initImageCapture() {
  * Method:    videoDevicesAsStrings
  * Signature: ()[Ljava/lang/String;
  */
-JNIEXPORT jobjectArray JNICALL Java_vars_avfoundation_AVFImageCaptureServiceImpl_videoDevicesAsStrings
+JNIEXPORT jobjectArray JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_videoDevicesAsStrings
 (JNIEnv *env, jobject clazz) {
     
     initImageCapture();
@@ -47,7 +47,7 @@ JNIEXPORT jobjectArray JNICALL Java_vars_avfoundation_AVFImageCaptureServiceImpl
  * Method:    startSessionWithNamedDevice
  * Signature: (Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_vars_avfoundation_AVFImageCaptureServiceImpl_startSessionWithNamedDevice
+JNIEXPORT jstring JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_startSessionWithNamedDevice
 (JNIEnv *env, jobject clazz, jstring namedDevice) {
 	
 	// Convert the incoming Device Name to an NSString
@@ -67,7 +67,7 @@ JNIEXPORT jstring JNICALL Java_vars_avfoundation_AVFImageCaptureServiceImpl_star
  * Method:    saveSnapshotToSpecifiedPath
  * Signature: (Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_vars_avfoundation_AVFImageCaptureServiceImpl_saveSnapshotToSpecifiedPath
+JNIEXPORT jstring JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_saveSnapshotToSpecifiedPath
 (JNIEnv *env, jobject clazz, jstring specifiedPath) {
 	
 	// Convert the incoming filename to an NSString
@@ -90,7 +90,7 @@ JNIEXPORT jstring JNICALL Java_vars_avfoundation_AVFImageCaptureServiceImpl_save
  * Method:    stopSession
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_vars_avfoundation_AVFImageCaptureServiceImpl_stopSession
+JNIEXPORT void JNICALLJava_org_mbari_vars_avfoundation_AVFImageCapture_stopSession
 (JNIEnv *env, jobject clazz) {
 	
 	// [imageCapture dealloc]; // Don't need. This project is using ARC

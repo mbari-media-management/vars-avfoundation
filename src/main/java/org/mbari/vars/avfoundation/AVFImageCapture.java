@@ -1,6 +1,7 @@
 package org.mbari.vars.avfoundation;
 
-import org.mbari.nativelib.Native;
+import org.scijava.nativelib.NativeLibraryUtil;
+import org.scijava.nativelib.NativeLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.prefs.Preferences;
 
 /**
  * AVFImageCapture
@@ -146,21 +146,35 @@ public class AVFImageCapture {
     }
 
     private void extractAndLoadNativeLibraries() {
+        NativeLibraryUtil.loadNativeLibrary(this.getClass(), LIBRARY_NAME);
 
-        String libraryName = System.mapLibraryName(LIBRARY_NAME);
-        String os = System.getProperty("os.name");
+//        try {
+//            //ativeLoader.loadLibrary(LIBRARY_NAME);
+//        }
+//        catch (IOException e) {
+//            log.error("Failed to load " + LIBRARY_NAME + " from a jar file", e);
+//        }
 
-        if (libraryName != null) {
-
-            File tempDir = new File(System.getProperty("java.io.tmpdir"));
-            // This finds the native library, extracts it and hacks the java.library.path if needed
-            new Native(LIBRARY_NAME, "native", tempDir, getClass().getClassLoader());
-
-        }
-        else {
-            log.error( "A native '" + LIBRARY_NAME + "' library for your platform is not available. " +
-                    "You will not be able to use AVFoundation to capture images");
-        }
+//        String libraryName = System.mapLibraryName(LIBRARY_NAME);
+//        String os = System.getProperty("os.name");
+//
+//        if (libraryName != null) {
+//
+//            File tempDir = new File(System.getProperty("java.io.tmpdir"));
+//            // This finds the native library, extracts it and hacks the java.library.path if needed
+//            try {
+//                NativeLoader.loadLibrary(LIBRARY_NAME);
+//            }
+//            catch (IOException e) {
+//                log.error("Failed to load " + LIBRARY_NAME + " from a jar file", e);
+//            }
+//
+//
+//        }
+//        else {
+//            log.error( "A native '" + LIBRARY_NAME + "' library for your platform is not available. " +
+//                    "You will not be able to use AVFoundation to capture images");
+//        }
 
     }
 
@@ -188,5 +202,34 @@ public class AVFImageCapture {
             image = ImageIO.read(file);
         }
         return image;
+    }
+
+    public static void main(String[] args) {
+        if (args.length == 0 || args.length > 2) {
+            System.out.println("Usage: " + AVFImageCapture.class.getName() + " <file> <device>");
+            System.out.println("\nArguments:\n");
+            System.out.println("\tfile: Where to save the image to.");
+            System.out.println("\tdevice: The name of the image capture device [Optional] default = FaceTime HD Camera");
+            return;
+        }
+
+        File file = new File(args[0]);
+        String device = args.length == 1 ? "FaceTime HD Camera" : args[1];
+
+        File dir = file.getParentFile();
+        if (dir != null && !dir.exists()) {
+            dir.mkdirs();
+        }
+
+        AVFImageCapture imageCaptureService = new AVFImageCapture();
+        imageCaptureService.startSessionWithNamedDevice(device);
+        Optional<Image> opt = imageCaptureService.capture(file);
+        if (opt.isPresent()) {
+            System.out.println("Captured image from  " + device + " to " +
+                    file.getAbsolutePath());
+        }
+        else {
+            System.out.println("Failed to write " + file.getAbsolutePath());
+        }
     }
 }
