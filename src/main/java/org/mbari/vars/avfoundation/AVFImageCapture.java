@@ -205,11 +205,17 @@ public class AVFImageCapture {
     }
 
     public static void main(String[] args) {
+        AVFImageCapture imageCaptureService = new AVFImageCapture();
+
         if (args.length == 0 || args.length > 2) {
             System.out.println("Usage: " + AVFImageCapture.class.getName() + " <file> <device>");
             System.out.println("\nArguments:\n");
             System.out.println("\tfile: Where to save the image to.");
             System.out.println("\tdevice: The name of the image capture device [Optional] default = FaceTime HD Camera");
+            String[] devices = imageCaptureService.videoDevicesAsStrings();
+            for (String d : devices) {
+                System.out.printf("\t\t" + d);
+            }
             return;
         }
 
@@ -221,7 +227,7 @@ public class AVFImageCapture {
             dir.mkdirs();
         }
 
-        AVFImageCapture imageCaptureService = new AVFImageCapture();
+
         imageCaptureService.startSessionWithNamedDevice(device);
         Optional<Image> opt = imageCaptureService.capture(file);
         if (opt.isPresent()) {
