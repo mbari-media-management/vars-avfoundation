@@ -90,7 +90,7 @@ JNIEXPORT jstring JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_saveS
  * Method:    stopSession
  * Signature: ()V
  */
-JNIEXPORT void JNICALLJava_org_mbari_vars_avfoundation_AVFImageCapture_stopSession
+JNIEXPORT void JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_stopSession
 (JNIEnv *env, jobject clazz) {
 	
 	// [imageCapture dealloc]; // Don't need. This project is using ARC

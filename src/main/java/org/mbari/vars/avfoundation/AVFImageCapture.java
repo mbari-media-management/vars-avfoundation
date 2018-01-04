@@ -1,7 +1,6 @@
 package org.mbari.vars.avfoundation;
 
 import org.scijava.nativelib.NativeLibraryUtil;
-import org.scijava.nativelib.NativeLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -237,5 +236,6 @@ public class AVFImageCapture {
         else {
             System.out.println("Failed to write " + file.getAbsolutePath());
         }
+        imageCaptureService.stopSession();
     }
 }
