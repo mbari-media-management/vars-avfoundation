@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Optional;
 
 /**
@@ -20,10 +21,7 @@ public class AVFImageCapture {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     public static final String LIBRARY_NAME = "avfimagesnap";
-    private volatile boolean isStarted = false;
-    
-    /** The device to use for image capture */
-    private String device;
+
 
     public AVFImageCapture() {
         try {
@@ -89,16 +87,19 @@ public class AVFImageCapture {
 
 
     public Optional<Image> capture(File file) {
-        if (!isStarted) {
-            startDevice();
-        }
+        return capture(file, Duration.ofSeconds(3));
+    }
+
+    public Optional<Image> capture(File file, Duration timeout) {
+
+        log.debug("Capturing image to " + file.getAbsolutePath());
 
         saveSnapshotToSpecifiedPath(file.getAbsolutePath());
 
         // -- Read file as image
         BufferedImage image = null;
         try {
-            image = watchForAndReadNewImage(file);
+            image = watchForAndReadNewImage(file, timeout);
         } catch (Exception e) {
             throw new RuntimeException("Failed to read image off of disk. It may not have been written.", e);
 
@@ -107,74 +108,8 @@ public class AVFImageCapture {
         return Optional.ofNullable(image);
     }
 
-
-    public void startSession(String device) {
-        if (device.equals(this.device)) {
-            return;
-        }
-
-        if (isStarted) {
-            stopDevice();
-        }
-        this.device = device;
-    }
-
-    public String getDevice() {
-        return device;
-    }
-
-
-    private void startDevice() {
-        if (isStarted) {
-            log.info("The video device '" + device + "' is already opened");
-        }
-        else if (device != null && !device.isEmpty()) {
-            log.debug("Starting image capture service, {}, using {}", getClass().getName(), device);
-            startSessionWithNamedDevice(device);
-            isStarted = true;
-        }
-        else {
-            log.warn("A video device to capture from has not been selected");
-        }
-    }
-
-    private void stopDevice() {
-        log.debug("Stopping image capture service, {}", getClass().getName());
-        stopSession();
-        isStarted = false;
-    }
-
     private void extractAndLoadNativeLibraries() {
         NativeLibraryUtil.loadNativeLibrary(this.getClass(), LIBRARY_NAME);
-
-//        try {
-//            //ativeLoader.loadLibrary(LIBRARY_NAME);
-//        }
-//        catch (IOException e) {
-//            log.error("Failed to load " + LIBRARY_NAME + " from a jar file", e);
-//        }
-
-//        String libraryName = System.mapLibraryName(LIBRARY_NAME);
-//        String os = System.getProperty("os.name");
-//
-//        if (libraryName != null) {
-//
-//            File tempDir = new File(System.getProperty("java.io.tmpdir"));
-//            // This finds the native library, extracts it and hacks the java.library.path if needed
-//            try {
-//                NativeLoader.loadLibrary(LIBRARY_NAME);
-//            }
-//            catch (IOException e) {
-//                log.error("Failed to load " + LIBRARY_NAME + " from a jar file", e);
-//            }
-//
-//
-//        }
-//        else {
-//            log.error( "A native '" + LIBRARY_NAME + "' library for your platform is not available. " +
-//                    "You will not be able to use AVFoundation to capture images");
-//        }
-
     }
 
     /**
@@ -185,9 +120,10 @@ public class AVFImageCapture {
      * @throws IOException
      * @throws InterruptedException
      */
-    private BufferedImage watchForAndReadNewImage(File file) throws IOException, InterruptedException {
+    private BufferedImage watchForAndReadNewImage(File file, Duration timeout)
+            throws IOException, InterruptedException {
         BufferedImage image = null;
-        long timeoutNanos = 3000000000L; // 3 seconds
+        long timeoutNanos = timeout.toNanos();
         long elapsedNanos = 0L;
         long startNanos = System.nanoTime();
         while (elapsedNanos < timeoutNanos) {
@@ -227,10 +163,11 @@ public class AVFImageCapture {
         }
 
 
+        //imageCaptureService.startSession(device);
         imageCaptureService.startSessionWithNamedDevice(device);
         Optional<Image> opt = imageCaptureService.capture(file);
         if (opt.isPresent()) {
-            System.out.println("Captured image from  " + device + " to " +
+            System.out.println("Captured image from " + device + " to " +
                     file.getAbsolutePath());
         }
         else {

@@ -21,7 +21,7 @@ AVFImageCapture ic = new AVFImageCapture();
 String[] devices = ic.videoDevicesAsStrings();
 
 // Pick one to capture from
-ic.startSession(devices[0]);
+ic.startSessionWithNamedDevice(devices[0]);
 
 // Do some capturing, capture as many images as you want. Images are
 // written to where you specify. Also, read and returned as java.awt.Image
