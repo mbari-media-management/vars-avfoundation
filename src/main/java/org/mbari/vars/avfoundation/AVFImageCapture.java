@@ -87,7 +87,7 @@ public class AVFImageCapture {
 
 
     public Optional<Image> capture(File file) {
-        return capture(file, Duration.ofSeconds(3));
+        return capture(file, Duration.ofSeconds(9));
     }
 
     public Optional<Image> capture(File file, Duration timeout) {
