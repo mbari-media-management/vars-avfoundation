@@ -2,8 +2,8 @@
 
 import AVFoundation
 
-let devices2 = AVCaptureDevice.devices()
+let devices = AVCaptureDevice.devices()
 print("All available AV Capture devices:")
-for d in devices2 {
+for d in devices {
     print(d)
 }
