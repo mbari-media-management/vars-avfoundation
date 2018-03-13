@@ -11,14 +11,15 @@
 
 int main(int argc, const char * argv[]) {
     
-    //NSApplicationLoad(); // Is this needed?
+    NSApplicationLoad(); // Is this needed?
     AVFStillImageCapture *imageCapture = [[AVFStillImageCapture alloc] init];
     NSArray *deviceNames = [imageCapture videoCaptureDevicesAsStrings];
     
-    [imageCapture setupCaptureSessionUsingNamedDevice:[deviceNames objectAtIndex:0]];
+    //[imageCapture setupCaptureSessionUsingNamedDevice:[deviceNames objectAtIndex:0]];
+    [imageCapture setupCaptureSessionUsingNamedDevice:@"Blackmagic DeckLink SDI"];
     @autoreleasepool {        
         for (int i = 0; i < 5; i++) {
-            [imageCapture saveStillImageToPath:[NSString stringWithFormat:@"snapshot%d.png", i]];
+            [imageCapture saveStillImageToPath:[NSString stringWithFormat:@"/Users/brian/Downloads/snapshot%d.png", i]];
             [NSThread sleepForTimeInterval:1.0f];
         }
     }
