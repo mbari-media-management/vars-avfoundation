@@ -4,7 +4,7 @@
 
   <groupId>org.mbari.vars</groupId>
   <artifactId>vars-avfoundation</artifactId>
-  <version>2.1.0</version>
+  <version>2.2.0</version>
   <packaging>jar</packaging>
 
   <name>vars-avfoundation</name>
@@ -16,9 +16,10 @@
         <xcode.builddir>${project.build.directory}/xcode</xcode.builddir>
 
         <junit.version>4.12</junit.version>
-        <logback.version>1.1.8</logback.version>
+        <logback.version>1.2.3</logback.version>
         <mbarix4j.version>1.10.0</mbarix4j.version>
-        <slf4j.version>1.7.22</slf4j.version>
+        <nativelib.version>2.3.0</nativelib.version>
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <developers>
@@ -55,7 +56,7 @@
         <dependency>
             <groupId>org.scijava</groupId>
             <artifactId>native-lib-loader</artifactId>
-            <version>2.2.0</version>
+            <version>${nativelib.version}</version>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>org.mbari</groupId>-->
@@ -118,7 +119,7 @@
                                 <configuration>
                                     <tasks>
                                         <copy file="${xcode.builddir}/libavfimagesnap.dylib"
-                                              todir="${project.build.outputDirectory}/META-INF/lib/osx_64" />
+                                              todir="${project.build.outputDirectory}/natives/osx_64" />
                                         <!--<copy file="${xcode.builddir}/libavfimagesnap.dylib"-->
                                               <!--tofile="${project.build.outputDirectory}/native/libavfimagesnap.jnilib" />-->
                                     </tasks>
