@@ -128,7 +128,8 @@
     
     if (captureConnection != nil) {
         
-        [stillImageOutput captureStillImageAsynchronouslyFromConnection:captureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+        [stillImageOutput captureStillImageAsynchronouslyFromConnection:captureConnection
+                                                      completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
             
             // Save as PNG
             if (imageDataSampleBuffer != NULL) {
@@ -136,7 +137,8 @@
                 NSData *jpgData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
 //                [jpgData writeToFile:path atomically:YES]; // Save as JPG
                 NSBitmapImageRep *bitmap = [NSBitmapImageRep imageRepWithData:jpgData];
-                NSData *pngData = [bitmap representationUsingType: NSPNGFileType properties:nil];
+                NSData *pngData = [bitmap representationUsingType: NSPNGFileType
+                                                       properties: [NSMutableDictionary dictionary]];
                 [pngData writeToFile:path atomically:YES]; // Save as PNG
             }
         }];

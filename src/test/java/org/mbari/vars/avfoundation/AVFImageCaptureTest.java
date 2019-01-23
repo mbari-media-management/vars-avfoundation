@@ -21,7 +21,9 @@ public class AVFImageCaptureTest {
         AVFImageCapture ic = new AVFImageCapture();
         String[] devides = ic.videoDevicesAsStrings();
         ic.startSessionWithNamedDevice(devides[0]);
-        Optional<Image> png = ic.capture(File.createTempFile(getClass().getSimpleName(), "png"));
+        Optional<Image> png = ic.capture(new File(getClass().getSimpleName(), "png"));
+        // Optional<Image> png =
+        // ic.capture(File.createTempFile(getClass().getSimpleName(), "png"));
         ic.stopSession();
         Assert.assertNotNull(png.get());
     }
