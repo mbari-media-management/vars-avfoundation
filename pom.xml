@@ -1,27 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.mbari.vars</groupId>
-  <artifactId>vars-avfoundation</artifactId>
-  <version>2.2.0</version>
-  <packaging>jar</packaging>
-
-  <name>vars-avfoundation</name>
-  <url>http://maven.apache.org</url>
-
-   <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.mbari.vars</groupId>
+    <artifactId>vars-avfoundation</artifactId>
+    <version>2.2.1</version>
+    <packaging>jar</packaging>
+    <name>vars-avfoundation</name>
+    <url>http://maven.apache.org</url>
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <xcode.basedir>${basedir}/src/main/xcode/</xcode.basedir>
         <xcode.builddir>${project.build.directory}/xcode</xcode.builddir>
-
         <junit.version>4.12</junit.version>
         <logback.version>1.2.3</logback.version>
         <mbarix4j.version>1.10.0</mbarix4j.version>
-        <nativelib.version>2.3.0</nativelib.version>
+        <nativelib.version>2.3.2</nativelib.version>
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
-
     <developers>
         <developer>
             <id>brian</id>
@@ -59,19 +53,18 @@
             <version>${nativelib.version}</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>org.mbari</groupId>-->
-            <!--<artifactId>mbarix4j</artifactId>-->
-            <!--<version>${mbarix4j.version}</version>-->
-            <!--<scope>compile</scope>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.slf4j</groupId>-->
-                    <!--<artifactId>slf4j-api</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
+        <!--<groupId>org.mbari</groupId>-->
+        <!--<artifactId>mbarix4j</artifactId>-->
+        <!--<version>${mbarix4j.version}</version>-->
+        <!--<scope>compile</scope>-->
+        <!--<exclusions>-->
+        <!--<exclusion>-->
+        <!--<groupId>org.slf4j</groupId>-->
+        <!--<artifactId>slf4j-api</artifactId>-->
+        <!--</exclusion>-->
+        <!--</exclusions>-->
         <!--</dependency>-->
-      </dependencies>
-
+    </dependencies>
     <profiles>
         <!--
             ON Mac OS X compile the native library
@@ -118,10 +111,9 @@
                                 </goals>
                                 <configuration>
                                     <tasks>
-                                        <copy file="${xcode.builddir}/libavfimagesnap.dylib"
-                                              todir="${project.build.outputDirectory}/natives/osx_64" />
+                                        <copy file="${xcode.builddir}/libavfimagesnap.dylib" todir="${project.build.outputDirectory}/META-INF/lib/osx_64" />
                                         <!--<copy file="${xcode.builddir}/libavfimagesnap.dylib"-->
-                                              <!--tofile="${project.build.outputDirectory}/native/libavfimagesnap.jnilib" />-->
+                                        <!--tofile="${project.build.outputDirectory}/native/libavfimagesnap.jnilib" />-->
                                     </tasks>
                                 </configuration>
                             </execution>
@@ -188,13 +180,13 @@
                         <configuration>
                             <exportAntProperties>true</exportAntProperties>
                             <target>
-                                <property name="runtime_classpath" refid="maven.compile.classpath"/>
+                                <property name="runtime_classpath" refid="maven.compile.classpath" />
                                 <exec executable="javah">
-                                    <arg value="-cp"/>
-                                    <arg value="${runtime_classpath}"/>
-                                    <arg value="-d"/>
-                                    <arg value="${project.build.directory}/jni"/>
-                                    <arg value="vars.avfoundation.AVFImageCaptureServiceImpl"/>
+                                    <arg value="-cp" />
+                                    <arg value="${runtime_classpath}" />
+                                    <arg value="-d" />
+                                    <arg value="${project.build.directory}/jni" />
+                                    <arg value="vars.avfoundation.AVFImageCaptureServiceImpl" />
                                 </exec>
                             </target>
                         </configuration>
@@ -221,7 +213,6 @@
             </extension>
         </extensions>
     </build>
-
     <distributionManagement>
         <repository>
             <id>bintray</id>
