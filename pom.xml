@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mbari.vars</groupId>
     <artifactId>vars-avfoundation</artifactId>
-    <version>2.2.3</version>
+    <version>2.2.2</version>
     <packaging>jar</packaging>
     <name>vars-avfoundation</name>
     <url>http://maven.apache.org</url>
@@ -13,8 +13,8 @@
         <junit.version>4.12</junit.version>
         <logback.version>1.2.3</logback.version>
         <mbarix4j.version>1.10.0</mbarix4j.version>
-        <nativelib.version>2.3.2</nativelib.version>
-        <slf4j.version>1.7.25</slf4j.version>
+        <nativelib.version>2.3.4</nativelib.version>
+        <slf4j.version>1.7.29</slf4j.version>
     </properties>
     <developers>
         <developer>
@@ -216,7 +216,7 @@
     <distributionManagement>
         <repository>
             <id>bintray</id>
-            <url>https://api.bintray.com/maven/hohonuuli/maven/vars-avfoundation/;publish=1</url>
+            <url>https://api.bintray.com/maven/org-mbari/maven/vars-avfoundation/;publish=1</url>
         </repository>
     </distributionManagement>
     <repositories>
@@ -226,7 +226,7 @@
             </snapshots>
             <id>bintray-hohonuuli-maven</id>
             <name>bintray</name>
-            <url>http://dl.bintray.com/hohonuuli/maven</url>
+            <url>http://dl.bintray.com/org-mbari/maven</url>
         </repository>
     </repositories>
 </project>
