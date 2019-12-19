@@ -215,15 +215,16 @@
 		D396603F183D780B00A1FA6F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Brian Schlining";
 			};
 			buildConfigurationList = D3966042183D780B00A1FA6F /* Build configuration list for PBXProject "avimagesnap" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = D396603E183D780B00A1FA6F;
 			productRefGroup = D3966048183D780B00A1FA6F /* Products */;
@@ -369,6 +370,7 @@
 				);
 				LD_DYLIB_INSTALL_NAME = "";
 				MACH_O_TYPE = mh_execute;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=*]" = org.mbari.avimagesnap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYMROOT = build;
@@ -387,6 +389,7 @@
 				LD_DYLIB_INSTALL_NAME = "";
 				MACH_O_TYPE = mh_execute;
 				ONLY_ACTIVE_ARCH = YES;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=*]" = org.mbari.avimagesnap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYMROOT = build;

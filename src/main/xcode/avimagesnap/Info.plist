@@ -9,6 +9,6 @@
 	<key>CFBundleIdentifier</key>
 	<string>org.mbari.avimagesnap</string>
 	<key>NSCameraUsageDescription</key>
-	<string>avimagesnap camera use</string>
+	<string>avimagsnap requires access to your computers camera and video inputs in order to capture images.</string>
 </dict>
 </plist>
