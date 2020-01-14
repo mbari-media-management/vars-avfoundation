@@ -16,8 +16,9 @@ int main(int argc, const char * argv[]) {
     NSArray *deviceNames = [imageCapture videoCaptureDevicesAsStrings];
     
 //    [imageCapture setupCaptureSessionUsingNamedDevice:[deviceNames objectAtIndex:0]];
-    [imageCapture setupCaptureSessionUsingNamedDevice:@"FaceTime HD Camera"];
+//    [imageCapture setupCaptureSessionUsingNamedDevice:@"FaceTime HD Camera"];
     //[imageCapture setupCaptureSessionUsingNamedDevice:@"Blackmagic DeckLink SDI"];
+    [imageCapture setupCaptureSessionUsingNamedDevice:@"CamTwist"];
     @autoreleasepool {        
         for (int i = 0; i < 5; i++) {
             [imageCapture saveStillImageToPath:[NSString stringWithFormat:@"/Users/brian/Downloads/snapshot%d.png", i]];
