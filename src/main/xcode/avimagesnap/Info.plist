@@ -4,10 +4,10 @@
 <dict>
 	<key>CFBundleDisplayName</key>
 	<string>avimagesnap</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
 	<string>avimagesnap</string>
-	<key>CFBundleIdentifier</key>
-	<string>org.mbari.avimagesnap</string>
 	<key>NSCameraUsageDescription</key>
 	<string>avimagsnap requires access to your computers camera and video inputs in order to capture images.</string>
 </dict>

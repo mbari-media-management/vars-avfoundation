@@ -59,10 +59,48 @@
 
 -(void) initSession {
     if (session == nil) {
-        session = [[AVCaptureSession alloc] init];
-        session.sessionPreset = AVCaptureSessionPresetPhoto;
-        [session startRunning];
+        
+        NSString *mediaType = AVMediaTypeVideo;
+        if (@available(macOS 10.14, *)) {
+            AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+            switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
+                case AVAuthorizationStatusAuthorized: {
+                    [self initAuthorizedSession];
+                    break;
+                }
+                case AVAuthorizationStatusDenied: {
+                    NSLog(@"avimagesnap has been denied access to %@", mediaType);
+                    break;
+                }
+                case AVAuthorizationStatusNotDetermined: {
+                    [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
+                        if (granted) {
+                            NSLog(@"Granted access to %@ for avimagesnap", mediaType);
+                            [self initAuthorizedSession];
+                        }
+                        else {
+                            NSLog(@"Access was not granted to %@ for avimagesnap", mediaType);
+                        }
+                    }];
+                    break;
+                }
+                case AVAuthorizationStatusRestricted:
+                    NSLog(@"avimagesnap encountered a restricted authorization status. Unable to access Camera hardward");
+                    break;
+            }
+            
+        } else {
+            // Fallback on earlier versions of macOS
+            [self initAuthorizedSession];
+        }
+        
     }
+}
+
+-(void) initAuthorizedSession {
+    session = [[AVCaptureSession alloc] init];
+    session.sessionPreset = AVCaptureSessionPresetPhoto;
+    [session startRunning];
 }
 
 -(void)  setupCaptureSessionUsingNamedDevice: (NSString *) name {
