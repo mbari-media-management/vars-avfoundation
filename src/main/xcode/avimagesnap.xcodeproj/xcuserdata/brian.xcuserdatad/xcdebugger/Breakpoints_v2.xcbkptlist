@@ -15,8 +15,8 @@
             timestampString = "569973055.3575881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "-setupCaptureSessionUsingNamedDevice:"
             landmarkType = "7">
          </BreakpointContent>

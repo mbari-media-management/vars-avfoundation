@@ -15,7 +15,7 @@ import java.util.Optional;
  */
 public class AVFImageCaptureTest {
 
-    @Ignore
+    // @Ignore
     @Test
     public void test01() throws IOException {
         AVFImageCapture ic = new AVFImageCapture();

@@ -21,6 +21,8 @@
 
 -(NSArray *) videoCaptureDevices {
     [self initSession];
+//    NSArray *deviceTypes [NSArray arrayWithObject:<#(nonnull id)#>]
+//    AVCaptureDeviceDiscoverySession *session = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:<#(nonnull NSArray<AVCaptureDeviceType> *)#> mediaType:<#(nullable AVMediaType)#> position:<#(AVCaptureDevicePosition)#>]
     NSArray *devices = [AVCaptureDevice devices];
     NSMutableArray *videoDevices = [NSMutableArray array];
     for (AVCaptureDevice *device in devices) {
@@ -61,38 +63,33 @@
     if (session == nil) {
         
         NSString *mediaType = AVMediaTypeVideo;
-        if (@available(macOS 10.14, *)) {
-            AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
-            switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
-                case AVAuthorizationStatusAuthorized: {
-                    [self initAuthorizedSession];
-                    break;
-                }
-                case AVAuthorizationStatusDenied: {
-                    NSLog(@"avimagesnap has been denied access to %@", mediaType);
-                    break;
-                }
-                case AVAuthorizationStatusNotDetermined: {
-                    [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
-                        if (granted) {
-                            NSLog(@"Granted access to %@ for avimagesnap", mediaType);
-                            [self initAuthorizedSession];
-                        }
-                        else {
-                            NSLog(@"Access was not granted to %@ for avimagesnap", mediaType);
-                        }
-                    }];
-                    break;
-                }
-                case AVAuthorizationStatusRestricted:
-                    NSLog(@"avimagesnap encountered a restricted authorization status. Unable to access Camera hardward");
-                    break;
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+        switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
+            case AVAuthorizationStatusAuthorized: {
+                [self initAuthorizedSession];
+                break;
             }
-            
-        } else {
-            // Fallback on earlier versions of macOS
-            [self initAuthorizedSession];
+            case AVAuthorizationStatusDenied: {
+                NSLog(@"avimagesnap has been denied access to %@", mediaType);
+                break;
+            }
+            case AVAuthorizationStatusNotDetermined: {
+                [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
+                    if (granted) {
+                        NSLog(@"Granted access to %@ for avimagesnap", mediaType);
+                        [self initAuthorizedSession];
+                    }
+                    else {
+                        NSLog(@"Access was not granted to %@ for avimagesnap", mediaType);
+                    }
+                }];
+                break;
+            }
+            case AVAuthorizationStatusRestricted:
+                NSLog(@"avimagesnap encountered a restricted authorization status. Unable to access Camera hardward");
+                break;
         }
+
         
     }
 }
