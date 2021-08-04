@@ -23,7 +23,7 @@
     [self initSession];
 //    NSArray *deviceTypes [NSArray arrayWithObject:<#(nonnull id)#>]
 //    AVCaptureDeviceDiscoverySession *session = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:<#(nonnull NSArray<AVCaptureDeviceType> *)#> mediaType:<#(nullable AVMediaType)#> position:<#(AVCaptureDevicePosition)#>]
-    NSArray *devices = [AVCaptureDevice devices];
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     NSMutableArray *videoDevices = [NSMutableArray array];
     for (AVCaptureDevice *device in devices) {
         if ([device hasMediaType:AVMediaTypeVideo]) {
