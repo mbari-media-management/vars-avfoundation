@@ -383,7 +383,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Monterey Bay Aquarium Research Institute (9TN7A342V4)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TN7A342V4;
 				EXECUTABLE_PREFIX = "";
@@ -404,7 +404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Monterey Bay Aquarium Research Institute (9TN7A342V4)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TN7A342V4;
 				EXECUTABLE_PREFIX = "";
