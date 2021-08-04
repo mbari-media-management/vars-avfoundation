@@ -220,7 +220,10 @@
 				TargetAttributes = {
 					D3966046183D780B00A1FA6F = {
 						DevelopmentTeam = 9TN7A342V4;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+					};
+					D3BAFDB218440B6000AA2B52 = {
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -384,7 +387,7 @@
 			buildSettings = {
 				ARCHS = x86_64;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Monterey Bay Aquarium Research Institute (9TN7A342V4)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9TN7A342V4;
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -405,7 +408,7 @@
 			buildSettings = {
 				ARCHS = x86_64;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Monterey Bay Aquarium Research Institute (9TN7A342V4)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9TN7A342V4;
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -427,6 +430,8 @@
 			buildSettings = {
 				ARCHS = x86_64;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Monterey Bay Aquarium Research Institute (9TN7A342V4)";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -450,6 +455,8 @@
 			buildSettings = {
 				ARCHS = x86_64;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Monterey Bay Aquarium Research Institute (9TN7A342V4)";
+				CODE_SIGN_STYLE = Manual;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
