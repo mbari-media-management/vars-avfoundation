@@ -1,6 +1,6 @@
 #include "vars_avfoundation_AVFImageCaptureServiceImpl.h"
 #include "AVFStillImageCapture.h"
-#import <JavaNativeFoundation/JavaNativeFoundation.h>
+//#import <JavaNativeFoundation/JavaNativeFoundation.h>
 
 
 AVFStillImageCapture *imageCapture = nil;
@@ -10,6 +10,55 @@ void initImageCapture() {
         imageCapture = [[AVFStillImageCapture alloc] init];
         [imageCapture initSession];
     }
+}
+
+
+/*
+ * ConvertToNSString
+ *
+ * given a non-null jstring argument, return the equivalent NSString representation. The object is autoreleased.
+ *
+ * This function returns NULL if the argument is NULL, or if the NSString couldn't be created. Requires the JNIEnv
+ * to be passed as the first argument
+ *
+ */
+NSString *ToNSString(JNIEnv *env, jstring str)
+{
+    if (str == NULL)
+    {
+        return NULL;
+    }
+
+    const jchar *chars = (*env)->GetStringChars(env, str, NULL);
+    NSString *myNSString =
+        [NSString stringWithCharacters:(UniChar *)chars  length:(*env)->GetStringLength(env, str)];
+    (*env)->ReleaseStringChars(env, str, chars);
+
+    return myNSString;
+}
+
+/*
+ * CreateJavaStringFromNSString
+ *
+ * given a non-null NSString argument, return the equivalent Java String representation.
+ *
+ * This function returns NULL if the argument is NULL, or if the jstring couldn't be created. Requires the JNIEnv
+ * to be passed as the first argument
+ *
+ */
+jstring ToJavaString(JNIEnv *env, NSString *nativeStr)
+{
+    if (nativeStr == NULL)
+    {
+        return NULL;
+    }
+    // Note that length returns the number of UTF-16 characters,
+    // which is not necessarily the number of printed/composed characters
+    jsize buflength = [nativeStr length];
+    unichar buffer[buflength];
+    [nativeStr getCharacters:buffer];
+    jstring javaStr = (*env)->NewString(env, (jchar *)buffer, buflength);
+    return javaStr;
 }
 
 /*
@@ -34,7 +83,7 @@ JNIEXPORT jobjectArray JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_
 	// Loop over devices
 	for (int i = 0; i < [videoDevicesAsStrings count]; i++) {
 		// Set the object in the java array to the device name converted to java string
-		(*env)->SetObjectArrayElement(env, result, i, JNFNSToJavaString(env, [videoDevicesAsStrings objectAtIndex:i]));
+		(*env)->SetObjectArrayElement(env, result, i, ToJavaString(env, [videoDevicesAsStrings objectAtIndex:i]));
 	}
 	
 	// Return the result
@@ -51,14 +100,14 @@ JNIEXPORT jstring JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_start
 (JNIEnv *env, jobject clazz, jstring namedDevice) {
 	
 	// Convert the incoming Device Name to an NSString
-	NSString *device = JNFJavaToNSString(env, namedDevice);
+	NSString *device = ToNSString(env, namedDevice);
     
     initImageCapture();
 
     [imageCapture setupCaptureSessionUsingNamedDevice: device];
 	
 	// Convert the filename back to jstring for return
-	return JNFNSToJavaString(env, device);
+	return ToJavaString(env, device);
 	
 };
 
@@ -71,7 +120,7 @@ JNIEXPORT jstring JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_saveS
 (JNIEnv *env, jobject clazz, jstring specifiedPath) {
 	
 	// Convert the incoming filename to an NSString
-	NSString *path = JNFJavaToNSString(env, specifiedPath);
+	NSString *path = ToNSString(env, specifiedPath);
 	
     if (imageCapture != nil) {
         [imageCapture saveStillImageToPath:path];
@@ -81,7 +130,7 @@ JNIEXPORT jstring JNICALL Java_org_mbari_vars_avfoundation_AVFImageCapture_saveS
     }
 	
 	// Convert the filename back to jstring for return
-	return JNFNSToJavaString(env, path);
+	return ToJavaString(env, path);
 
 };
 

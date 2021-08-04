@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mbari.vars</groupId>
     <artifactId>vars-avfoundation</artifactId>
-    <version>2.2.4</version>
+    <version>2.3.0.jre11</version>
     <packaging>jar</packaging>
     <name>vars-avfoundation</name>
     <url>http://maven.apache.org</url>
@@ -94,15 +94,13 @@
                         <version>3.0.0</version>
                         <executions>
                             <execution>
-                                <phase>prepare-package</phase>
+                                <phase>process-classes</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
                                     <target>
                                         <copy file="${xcode.builddir}/libavfimagesnap.dylib" todir="${project.build.outputDirectory}/META-INF/lib/osx_64" />
-                                        <!--<copy file="${xcode.builddir}/libavfimagesnap.dylib"-->
-                                        <!--tofile="${project.build.outputDirectory}/native/libavfimagesnap.jnilib" />-->
                                     </target>
                                 </configuration>
                             </execution>
@@ -190,22 +188,18 @@
                     <source>11</source>
                     <target>11</target>
                     <compilerArgs>
-                        <arg>-Xlint:all,-options,-path</arg>
+                        <!-- <arg>-Xlint:all,-options,-path</arg> -->
+                        <arg>-h</arg>
+                        <arg>target/headers</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-webdav</artifactId>
-            </extension>
-        </extensions>
     </build>
     <distributionManagement>
         <repository>
-            <id>bintray</id>
-            <url>https://api.bintray.com/maven/org-mbari/maven/vars-avfoundation/;publish=1</url>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/mbari-org/maven</url>
         </repository>
     </distributionManagement>
     <repositories>
@@ -213,9 +207,9 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <id>bintray-hohonuuli-maven</id>
-            <name>bintray</name>
-            <url>http://dl.bintray.com/org-mbari/maven</url>
+            <id>github</id>
+            <name>github</name>
+            <url>https://maven.pkg.github.com/mbari-org/maven</url>
         </repository>
     </repositories>
 </project>
